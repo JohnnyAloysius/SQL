@@ -1,0 +1,30 @@
+-- Create a Bluetooth Store Database--
+
+create table Bluetooth(ID integer primary key, Name text, Fidelity integer, Quantity integer, Use text, Price integer);
+
+Insert into Bluetooth VALUES
+(1, "HD MAX", 9, 3, "Speaker", 99),
+(2, 'HD77', 8, 5, "Speaker", 59),
+(3, 'Beats Wired', 6, 8, "Earphone", 79),
+(4, 'LA 2 Pro', 9, 4, "Earphone", 89),
+(5, 'Treb X7', 4, 9, "Earphone", 29),
+(6, 'JBL MAX', 9, 3, "Speaker", 110),
+(7, 'Anker X Series', 7, 8, "Speaker", 150),
+(8, 'Klipsch Black', 10, 2, "Earphone", 139),
+(9, 'Sony LinkBuds', 10, 1, "Earphone", 140),
+(10, 'Monster Z', 5, 6, "Speaker", 39),
+(11, 'Marshall E', 9, 8, "Speaker", 119),
+(12, 'Sonos Era', 10, 4, "Speaker", 179),
+(13, 'Bose Z20', 6, 9, "Earphone", 199),
+(14, 'Apple Airpods', 3, 10, "Earphone", 200),
+(15, 'Jabra GEEK', 5, 8, "Earphone", 169);
+
+--Display Database odered by Price--
+Select * from Bluetooth
+Order by Price;
+
+--Display Average Price--
+Select AVG(price) from Bluetooth;
+
+--Quantities of all items--
+Select Sum(quantity) from Bluetooth
