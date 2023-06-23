@@ -1,0 +1,67 @@
+CREATE TABLE Daily_Workout
+(ID INTEGER PRIMARY KEY,
+Name TEXT, 
+Type TEXT,
+Sets INTEGER,
+Reps INTEGER,
+Weight_lbs INTEGER,
+Weight_kg INTEGER,
+Timeframe INTEGER,
+Calories_Burned INTEGER);
+
+INSERT INTO Daily_Workout VALUES(1, 'Preacher_Curls', 'Dual',  4, 20, 120, 54.431, 10, 68.45);
+INSERT INTO Daily_Workout Values(2, 'Standard_Bench', 'Dual',  4, 10, 295, 133.81, 10, 84.134);
+INSERT INTO Daily_Workout Values(3, 'Leg_Extension', 'Dual', 4, 25, 120, 54.431, 10, 85.56);
+INSERT INTO Daily_Workout Values(4, 'Standard_DCurls', 'Dual', 2, 10, 100, 45.359, 4.3, 6.13);
+INSERT INTO Daily_Workout Values(5, 'Hammer_Curls', 'Dual', 2, 10, 100, 45.359, 4.3, 6.13);
+INSERT INTO Daily_Workout Values(6, 'Alt_CB_Hammer', 'Left', 2, 10, 50, 22.679, 4.3, 3.07);
+INSERT INTO Daily_Workout Values(7, 'Alt_CB_Hammer', 'Right', 2, 10, 50, 22.679, 4.3, 3.07);
+INSERT INTO Daily_Workout Values(8, 'Alt_S_Hammer', 'Left', 2, 10, 50, 22.679, 4.3, 3.07);
+INSERT INTO Daily_Workout Values(9, 'Alt_S_Hammer', 'Right', 2, 10, 50, 22.679, 4.3, 3.07);
+INSERT INTO Daily_Workout Values(10, 'Incline_Bench', 'Dual', 4, 20, 225, 102.058, 15, 191.51);
+INSERT INTO Daily_Workout Values(11, 'Shrugs', 'Dual', 4, 30, 100, 45.359, 4.3, 36.79);
+INSERT INTO Daily_Workout Values(12, 'Squats', 'Dual', 4, 20, 255, 115.666, 15, 218.18);
+INSERT INTO Daily_Workout Values(13, 'Neutral_Pullups', 'Dual', 5, 20, 260, 117.934, 7.5, 139.04);
+INSERT INTO Daily_Workout Values(14, 'Dumbbell_Row', 'Left', 4, 20, 50, 22.679, 7.5, 21.39);
+INSERT INTO Daily_Workout Values(15, 'Dumbbell_Row', 'Right', 4, 20, 50, 22.679, 7.5, 21.39);
+INSERT INTO Daily_Workout Values(16, 'Thrusters', 'Dual', 4, 20, 100, 45.359, 7.5, 42.78);
+INSERT INTO Daily_Workout Values(17, 'Dips', 'Dual', 7, 30, 260, 117.934, 45, 746);
+INSERT INTO Daily_Workout Values(18, 'Calf_Raise', 'Dual', 7, 60, 260, 117.934, 6, 467.16);
+INSERT INTO Daily_Workout Values(19, 'AB_Roller', 'Dual', 4, 10, 260, 117.934, 10, 74.15);
+INSERT INTO Daily_Workout Values(20, 'Banded_Pushup', 'Dual', 7, 60, 330, 149.685, 45, 815);
+INSERT INTO Daily_Workout Values(21, 'CG_Standing_BBCurl', 'Dual', 1, 20, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(22, 'ReverseCG_Standing_BBCurl', 'Dual', 1, 20, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(23, 'WideGrip_Standing_BBCurl', 'Dual', 1, 20, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(24, 'ReverseWG_Standing_BBCurl', 'Dual', 1, 20, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(25, 'ReverseXWG_Standing_BBCurl', 'Dual', 1, 2, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(26, 'ExtraWG_Standing_BBCurl', 'Dual', 1, 2, 75, 34.019, 2, 2.139);
+INSERT INTO Daily_Workout Values(27, 'Modified_XWGStanding_BBCurl', 'Dual', 1, 2, 75, 34.019, 2, 2.139);
+
+SELECT Name, Type, Calories_Burned FROM Daily_Workout
+ORDER BY Calories_Burned DESC;
+
+SELECT SUM(Calories_Burned) AS Total_Burned FROM Daily_Workout;
+
+SELECT Name, Type, Sets, Weight_lbs FROM Daily_Workout WHERE Sets = 4;
+
+SELECT SUM(Weight_lbs*Sets) AS Total_Weight_Moved FROM Daily_Workout;
+
+SELECT COUNT (Reps), Sets FROM Daily_Workout
+GROUP BY Sets
+HAVING Reps >=15;
+
+Select Type, AVG(Weight_kg) AS AVG_KG FROM Daily_Workout
+GROUP BY Type
+HAVING AVG_KG >50;
+
+SELECT * FROM Daily_Workout
+WHERE Timeframe < Reps
+OR Reps = Sets;
+
+SELECT COUNT(*),
+CASE
+WHEN Weight_lbs >225 THEN 'Above Max'
+WHEN Reps > 8 THEN 'Above Goal'
+ELSE 'At Goal'
+END AS 'Top 5'
+FROM Daily_Workout;
