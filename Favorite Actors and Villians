@@ -1,0 +1,65 @@
+CREATE TABLE Favorite_Actors
+(ID INTEGER PRIMARY KEY,
+Name TEXT,
+Fav_Movie TEXT,
+DOB INTEGER,
+Location TEXT,
+Age INTEGER,
+Status TEXT,
+Height_Inch INTEGER);
+
+INSERT INTO Favorite_Actors VALUES(1, 'Stephen_Lang', 'Avatar', 7111952, 'New York_NY', 70, 'Married', 70);
+INSERT INTO Favorite_Actors VALUES(2, 'Michael_B_Jordan', 'Black_Panther', 291987, 'SantaAna_CA', 36, 'Single', 72);
+INSERT INTO Favorite_Actors VALUES(3, 'Ryan Reynolds', 'Deadpool', 10231976, 'Vancouver_Canada', 46, 'Married', 74);
+INSERT INTO Favorite_Actors VALUES(4, 'Margot_Robbie', 'Suicide_Squad', 721990, 'Dalby_Australia', 32, 'Single', 66);
+INSERT INTO Favorite_Actors VALUES(5, 'Alan_Ritchson', 'BMS', 11281982, 'Grand_Forks_ND', 40,  'Married', 74);
+INSERT INTO Favorite_Actors VALUES(6, 'Heath_Ledger', 'The_Dark_Knight', 441979, 'Perth_Australia', 28, 'Deceased', 73);
+INSERT INTO Favorite_Actors VALUES(7, 'Jonathan_Majors', 'Quantumania', 971989, 'Lompoc_CA', 33,  'Single', 71);
+INSERT INTO Favorite_Actors VALUES(8, 'Zoe_Saldana', 'GOTG', 6191978, 'Passaic_NJ', 45, 'Married',  67);
+INSERT INTO Favorite_Actors VALUES(9, 'Jodie_Comer', 'Killing_Eve', 3111993, 'Liverpool_UK', 30, 'Single', 68);
+INSERT INTO Favorite_Actors VALUES(10, 'Jason_Mamoa', 'Fast_X', 811979, 'Honolulu_HI', 43, 'Married', 76);
+
+CREATE TABLE Favorite_Villians
+(ID INTEGER PRIMARY KEY,
+Name TEXT,
+Movie TEXT,
+Strengths TEXT,
+Talents TEXT,
+Status TEXT,
+Height_Inch INTEGER);
+
+INSERT INTO Favorite_Villians VALUES(1, 'Miles_Quaritch', 'Avatar', 'Marine/Artificial_Navi', 'Genocide', 'Dead', 70);
+INSERT INTO Favorite_Villians VALUES(2, 'Killmonger', 'Black_Panther', 'Special_Forces/H_S_Herb', 'Mass_Murder', 'Dead', 72);
+INSERT INTO Favorite_Villians VALUES(3, 'Wade_Wilson', 'Deadpool', 'Special_Forces/Mutant', 'Assassination', 'Alive', 74);
+INSERT INTO Favorite_Villians VALUES(4, 'Harley_Quinn', 'Suicide_Squad', 'Agent_of_Chaos', 'Murder', 'Alive', 66);
+INSERT INTO Favorite_Villians VALUES(5, 'Thad_Castle', 'BMS', 'Linebacker', 'Bully', 'Alive', 74);
+INSERT INTO Favorite_Villians VALUES(6, 'Joker', 'The_Dark_Knight', 'Insane', 'Mass_Murder', 'Alive', 73);
+INSERT INTO Favorite_Villians VALUES(7, 'Kang_The_Conquerer', 'Quantumania', 'Advanced_Armor', 'Universal_Genocide', 'Alive', 71);
+INSERT INTO Favorite_Villians VALUES(8, 'Gamora', 'GOTG', 'Superhuman_Attributes/Combat', 'Assassination', 'Alive', 67);
+INSERT INTO Favorite_Villians VALUES(9, 'Villanelle', 'Killing_Eve', 'Camoflage/Psychopath', 'Assassination', 'Alive', 68);
+INSERT INTO Favorite_Villians VALUES(10, 'Dante_Reyes', 'Fast_X', 'Driver/Psychopath', 'Mass_Murder', 'Alive', 76);
+
+SELECT 
+Favorite_Actors.Name, 
+Favorite_Actors.Fav_Movie, 
+Favorite_Villians.Name, 
+Favorite_Villians.Movie 
+From Favorite_Actors
+INNER JOIN Favorite_Villians 
+ON Favorite_Actors. Fav_Movie=Favorite_Villians.Movie;
+
+SELECT 
+Favorite_Actors.Name,
+Favorite_Actors.Status,
+Favorite_Actors.DOB,
+Favorite_Actors.Age,
+Favorite_Actors.Height_Inch,
+Favorite_Villians.Name,
+Favorite_Villians.Movie,
+Favorite_VIllians.Strengths,
+Favorite_VIllians.Status,
+Favorite_Villians.Height_Inch
+FROM Favorite_Actors
+INNER JOIN Favorite_VIllians
+ON Favorite_Actors.Fav_Movie=Favorite_Villians .Movie
+ORDER BY AGE
