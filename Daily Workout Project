@@ -65,3 +65,4 @@ WHEN Reps > 8 THEN 'Above Goal'
 ELSE 'At Goal'
 END AS 'Top 5'
 FROM Daily_Workout;
+
