@@ -1,6 +1,6 @@
 -- Create a Bluetooth Store Database--
 
-create table Bluetooth(ID integer primary key, Name text, Fidelity integer, Quantity integer, Use text, Price integer);
+Create table Bluetooth(ID integer primary key, Name text, Fidelity integer, Quantity integer, Use text, Price integer);
 
 Insert into Bluetooth VALUES
 (1, "HD MAX", 9, 3, "Speaker", 99),
