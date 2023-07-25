@@ -97,3 +97,15 @@ SELECT product, SUM(quantity*price)
 FROM BIT_DB.JanSales
 GROUP BY product
 ORDER BY SUM(quantity*price) DESC LIMIT 1;
+
+14. I determined the avg loudness, song key, and liveness by artist and track. 
+SELECT artist_name, track_name,
+AVG(loudness), AVG(song key), AVG(liveness)
+FROM BIT_DB.spotifydata
+GROUP BY artist_name, track_name
+
+15.  I determined who the Top 10 artists are by tempo
+SELECT track_name, artist_name, tempo
+FROM BIT_DB.spotifydata
+ORDER BY popularity desc
+LIMIT 10
