@@ -1,0 +1,13 @@
+SELECT * FROM SUPERSTORE
+ORDER BY price desc
+
+SELECT SUM(stock_quantity),category
+FROM superstore
+WHERE category='Electronics'
+
+SELECT AVG(price),'Kitchen_Supplies'
+FROM superstore
+
+SELECT category, SUM(stock_quantity) AS total_inventory
+FROM superstore
+GROUP BY category
