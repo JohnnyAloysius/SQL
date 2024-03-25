@@ -1,0 +1,170 @@
+1. How many tracks are there in the database?
+SELECT COUNT(*) FROM chinook.tracks;
+
+2. What are the names of the longest tracks (in terms of milliseconds)?
+SELECT * FROM chinook.tracks
+ORDER BY Milliseconds desc
+LIMIT 3;
+
+3. Which artist composed the track with the longest duration?
+SELECT
+Artists.Name AS ArtistName,
+Tracks.Name AS TrackName,
+Tracks.Milliseconds
+FROM chinook.artists Artists
+JOIN chinook.albums Albums
+ON Artists.Artistid = Albums.ArtistId
+JOIN chinook.tracks Tracks
+ON Albums.Albumid = Tracks.AlbumId
+WHERE Tracks.Milliseconds = (
+SELECT MAX(Milliseconds)
+FROM Tracks);
+
+4. How many tracks does each unique genre contain in the database?
+SELECT
+genres.Name AS GenreName,
+COUNT(Tracks.Trackid) AS TotalTracks
+FROM chinook.genres Genres
+JOIN chinook.tracks Tracks
+ON Genres.Genreid = Tracks.GenreId
+GROUP BY Genres.Name;
+
+5. Which genre has the most tracks?
+SELECT
+genres.Name AS GenreName,
+COUNT(Tracks.Trackid) AS TotalTracks
+FROM chinook.genres Genres
+JOIN chinook.tracks Tracks
+ON Genres.Genreid = Tracks.GenreId
+GROUP BY Genres.Name
+ORDER BY TotalTracks desc LIMIT 1;
+
+6. What are the top five genres purchased, by invoice?
+SELECT
+genres.Name AS GenreNames,
+COUNT(DISTINCT invoice_items.invoiceid) AS TotalInvoices
+FROM chinook.genres Genres
+JOIN chinook.tracks Tracks
+ON Genres.Genreid=Tracks.GenreId
+JOIN chinook.invoice_items
+ON Tracks.Trackid=chinook.invoice_items.Trackid
+GROUP BY Genres.Name
+ORDER BY TotalInvoices DESC Limit 5
+
+7. How many albums in each genre are there?
+SELECT
+genres.Name AS GenreName,
+COUNT(DISTINCT albums.Albumid) AS TotalAlbums
+FROM chinook.genres Genres
+JOIN
+chinook.tracks Tracks
+ON Genres.Genreid=Tracks.GenreId
+JOIN chinook.albums Albums
+ON Tracks.Albumid=Albums.AlbumId
+GROUP BY Genres.Name;
+What are the most requested/purchased tracks?
+Which album has the highest total track duration?
+
+8. Which Employees assisted on the most customer invoices?
+SELECT
+employees.Employeeid,
+employees.LastName,
+employees.FirstName,
+employees.Title,
+COUNT(DISTINCT invoices.Invoiceid) AS TotalinvoicesAssisted
+FROM chinook.employees Emp
+JOIN chinook.customers Cust
+ON Emp.Employeeid = Cust.SupportRepId
+JOIN chinook.invoices Inv
+ON Cust.Customerid = Inv.CustomerId
+GROUP BY Emp.Employeeid,
+Emp.LastName,
+Emp.FirstName,
+Emp.Title
+ORDER BY TotalInvoicesAssisted DESC
+Limit 1;
+
+9. Which customers in the database spent the most in 2009?
+SELECT
+customers.CustomerId,
+customers.FirstName,
+customers.LastName,
+SUM(invoice_items.UnitPrice) AS TotalSpent
+FROM
+chinook.customers
+JOIN invoices
+ON chinook.customers.CustomerId = chinook.invoices.CustomerId
+JOIN chinook.invoice_items
+ON chinook.invoices.InvoiceId = chinook.invoice_items.InvoiceId
+WHERE
+chinook.invoices.InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31'
+GROUP BY 
+chinook.customers.CustomerId,
+chinook.customers.FirstName,
+chinook.customers.LastName
+ORDER BY TotalSpent DESC
+LIMIT 1;
+
+10. Who are the top-spending customers by country?
+SELECT
+customers.Country,
+customers.FirstName,
+customers.LastName,
+SUM(invoices.Total) AS TotalSpent
+FROM chinook.customers
+JOIN chinook.invoices
+ON
+chinook.customers.CustomerId=chinook.invoices.CustomerId
+GROUP BY
+chinook.customers.Country,
+chinook.customers.FirstName,
+chinook.customers.LastName
+ORDER BY TotalSpent DESC
+
+11. Which country has generated the most money spent?
+SELECT
+invoices.BillingCountry AS Country,
+SUM(invoices.Total) AS TotalGen
+FROM chinook.invoices
+GROUP BY BillingCountry
+ORDER BY TotalGen DESC LIMIT 1
+
+12. What is the total money spent by Country?
+SELECT
+invoices.BillingCountry AS Country,
+SUM(invoices.Total) AS TotalGen
+FROM chinook.invoices
+GROUP BY BillingCountry
+ORDER BY TotalGen DESC;
+
+13. How many playlists exist?
+SELECT
+COUNT(*)AS TotalPlaylists
+FROM chinook.playlists
+
+14. Which playlists contain the most tracks?
+SELECT
+playlists.PlaylistId,
+COUNT(playlist_track.TrackId) AS TotalTracks
+FROM chinook.playlists
+JOIN
+chinook.playlist_track
+ON chinook.playlists.PlaylistId=chinook.playlist_track.PlaylistId
+GROUP BY chinook.playlists.PlaylistId
+ORDER BY TotalTracks DESC
+LIMIT 1
+
+15. Which playlist is the longest?
+SELECT
+playlists.PlaylistId,
+SUM(tracks.Milliseconds) AS TotalDUrationMilli
+FROM chinook.playlists
+JOIN
+chinook.playlist_track
+ON chinook.playlists.PlaylistId=chinook.playlist_track.PlaylistId
+JOIN
+chinook.tracks
+ON chinook.playlist_track.TrackId=chinook.tracks.TrackId
+GROUP BY chinook.playlists.PlaylistId
+ORDER BY TotalDurationMilli DESC
+LIMIT 1
